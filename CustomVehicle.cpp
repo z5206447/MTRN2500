@@ -31,26 +31,30 @@ CustomVehicle::CustomVehicle()
 
 void CustomVehicle::draw()
 {	
+	int x = 5;
+	int y = 3;
+	int z = 6;
+
 	glPushMatrix();
 	positionInGL();
-	RectangularPrism Rectangle(3, 3, 3);
+	RectangularPrism Rectangle(x, y, z, 1, 0, 0);
 	Rectangle.draw();
 
 	glPushMatrix();
-	glTranslatef(3, -3.0, -3);
-	TriangularPrism Triangle(6, 8, 6, 90);
+	glTranslatef(x, -y, -3);
+	TriangularPrism Triangle(8, 10, 6, 90, 0, 1, 0);
 	Triangle.draw();
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(-5.0, 0.0, -2);
-	Cylinder Cylinder(2, 4);
+	glTranslatef(-(3+x), 0.0, 0.0);
+	Cylinder Cylinder(3, 12, 0, 0, 1);
 	Cylinder.draw();
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(0.0, 6, 0.0);
-	TrapezoidalPrism Trapezoid(3.0, 3.0, 3.0, 1.0);
+	glTranslatef(0.0, (3+y), 0.0);
+	TrapezoidalPrism Trapezoid(6.0, 3.0, 6.0, 3.0, 1, 1, 1);
 	Trapezoid.draw();
 	glPopMatrix();
 

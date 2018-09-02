@@ -10,10 +10,13 @@ class Cylinder : public Shape {
 private:
 	double Radius;
 	double Length;
+	double r;
+	double g;
+	double b;
 
 public:
 	Cylinder();
-	Cylinder(double Radius, double Length);
+	Cylinder(double Radius, double Length, double r, double g, double b);
 
 	double getRadius();
 	double getLength();

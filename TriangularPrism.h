@@ -12,10 +12,13 @@ private:
 	double BLength;
 	double Depth;
 	double Angle;
+	double r;
+	double g;
+	double b;
 
 public:
 	TriangularPrism();
-	TriangularPrism(double ALength, double BLength, double Depth, double Angle);
+	TriangularPrism(double ALength, double BLength, double Depth, double Angle, double r, double g, double b);
 
 	double getALength();
 	double getBLength();

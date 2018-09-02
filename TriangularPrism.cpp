@@ -32,12 +32,15 @@ TriangularPrism::TriangularPrism()
 	Angle = 90;
 }
 
-TriangularPrism::TriangularPrism(double ALength, double BLength, double Depth, double Angle)
+TriangularPrism::TriangularPrism(double ALength, double BLength, double Depth, double Angle, double r, double g, double b)
 {
 	this->ALength = ALength;
 	this->BLength = BLength;
 	this->Depth = Depth;
 	this->Angle = Angle;
+	this->r = r;
+	this->g = g;
+	this->b = b;
 }
 
 double TriangularPrism::getALength()
@@ -86,12 +89,11 @@ void TriangularPrism::draw()
 	//glLoadIdentity();
 	//glTranslatef(1.5f, 0.0f, -6.0f);
 	//glRotatef(rotation, 1.0, 0.0, 0.0);
+	glColor3f(r, g, b);
 
 	glBegin(GL_TRIANGLES);
 
 	// Front face of prism
-	glColor3f(0.0, 0.0, 1.0);
-	//glVertex3f(x - XLength, y - YLength, z - ZLength);
 	glVertex3f(x, y, z);
 	glVertex3f(x + ALength, y, z);
 	glVertex3f(x + BLength * cos(Angle * PI/180.0), y + BLength * sin(Angle * PI / 180.0), z);
@@ -105,24 +107,24 @@ void TriangularPrism::draw()
 
 	glBegin(GL_QUADS);
 
-	// Bottom face of prism
-	glColor3f(1.0, 0.0, 0.0);
+	//glColor3f(1.0, 0.0, 0.0);
 
+	// Bottom face of prism
 	glVertex3f(x, y, z);
 	glVertex3f(x + ALength, y, z);
 	glVertex3f(x + ALength, y, z + Depth);
 	glVertex3f(x, y, z + Depth);
 
+	//glColor3f(0.0, 1.0, 0.0);
 	// Left face of Vertex
-	glColor3f(0.0, 1.0, 0.0);
 	glVertex3f(x, y, z);
 	glVertex3f(x, y, z + Depth);
 	glVertex3f(x + BLength * cos(Angle * PI / 180.0), y + BLength * sin(Angle * PI / 180.0), z + Depth);
 	glVertex3f(x + BLength * cos(Angle * PI / 180.0), y + BLength * sin(Angle * PI / 180.0), z);
 
 
+	//glColor3f(1.0, 1.0, 1.0);
 	// Right face of Vertex
-	glColor3f(1.0, 1.0, 1.0);
 	glVertex3f(x + ALength, y, z);
 	glVertex3f(x + ALength, y, z + Depth);
 	glVertex3f(x + BLength * cos(Angle * PI / 180.0), y + BLength * sin(Angle * PI / 180.0), z + Depth);

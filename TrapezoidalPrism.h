@@ -12,10 +12,13 @@ private:
 	double YLength;
 	double ZLength;
 	double Offset;
+	double r;
+	double g;
+	double b;
 
 public:
 	TrapezoidalPrism();
-	TrapezoidalPrism(double XLength, double YLength, double ZLength, double Offset);
+	TrapezoidalPrism(double XLength, double YLength, double ZLength, double Offset, double r, double g, double b);
 
 	double getXLength();
 	double getYLength();
