@@ -34,6 +34,13 @@
 #include "Shape.hpp"
 #include "Vehicle.hpp"
 
+#include "Cylinder.h"
+#include "RectangularPrism.h"
+#include "TrapezoidalPrism.h"
+#include "TriangularPrism.h"
+
+#include "CustomVehicle.h"
+
 #include "RemoteDataManager.hpp"
 #include "Messages.hpp"
 #include "HUD.hpp"
@@ -107,7 +114,7 @@ int main(int argc, char ** argv) {
 	//   custom vehicle.
 	// -------------------------------------------------------------------------
 
-	//vehicle = new MyVehicle();
+	vehicle = new CustomVehicle();
 
 
 	// add test obstacles
@@ -194,7 +201,7 @@ void display() {
 
 	// draw HUD
 	HUD::Draw();
-
+	
 	glutSwapBuffers();
 };
 
@@ -296,7 +303,7 @@ void idle() {
 				otherVehicles.clear();
 
 				// uncomment this line to connect to the robotics server.
-				//RemoteDataManager::Connect("www.robotics.unsw.edu.au","18081");
+				RemoteDataManager::Connect("www.robotics.unsw.edu.au","18081");
 
 				// on connect, let's tell the server what we look like
 				if (RemoteDataManager::IsConnected()) {
@@ -308,6 +315,50 @@ void idle() {
 					//
 					// student code goes here
 					//
+					ShapeInit RectPrism;
+					RectPrism.type = RECTANGULAR_PRISM;
+					RectPrism.params.rect.xlen = 5;
+					RectPrism.params.rect.ylen = 3;
+					RectPrism.params.rect.zlen = 6;
+					RectPrism.xyz[0] = 0.0;
+					RectPrism.xyz[1] = 0.0;
+					RectPrism.xyz[2] = 0.0;
+					RectPrism.rotation = 0.0;
+					RectPrism.rgb[0] = 1.0;
+					RectPrism.rgb[1] = 0.0;
+					RectPrism.rgb[2] = 0.0;
+
+					ShapeInit TriPrism;
+					TriPrism.type = TRIANGULAR_PRISM;
+					TriPrism.params.tri.alen = 8;
+					TriPrism.params.tri.blen = 10;
+					TriPrism.params.tri.depth = 6;
+					TriPrism.params.tri.angle = 90;
+					TriPrism.xyz[0] = 5.0;
+					TriPrism.xyz[1] = -3.0;
+					TriPrism.xyz[2] = -3.0;
+					TriPrism.rotation = 0.0;
+					TriPrism.rgb[0] = 0.0;
+					TriPrism.rgb[1] = 1.0;
+					TriPrism.rgb[2] = 0.0;
+
+					ShapeInit TrapPrism;
+					TrapPrism.type = TRAPEZOIDAL_PRISM;
+					TrapPrism.params.trap.alen = 12.0;
+					TrapPrism.params.trap.blen = 6.0;
+					TrapPrism.params.trap.height = 6.0;
+					TrapPrism.params.trap.aoff = 3.0;
+					TrapPrism.params.trap.depth = 12.0;
+					TrapPrism.xyz[0] = 0.0;
+					TrapPrism.xyz[1] = 6.0;
+					TrapPrism.xyz[2] = 0.0;
+					TrapPrism.rotation = 0.0;
+					TrapPrism.rgb[0] = 1.0;
+					TrapPrism.rgb[1] = 1.0;
+					TrapPrism.rgb[2] = 1.0;
+
+					//Add models for wheels
+					//Add all ShapeInit into vectors
 
 					RemoteDataManager::Write(GetVehicleModelStr(vm));
 				}
@@ -343,11 +394,17 @@ void idle() {
 								VehicleModel vm = models[i];
 								
 								// uncomment the line below to create remote vehicles
-								//otherVehicles[vm.remoteID] = new MyVehicle();
+								otherVehicles[vm.remoteID] = new CustomVehicle();
 
 								//
 								// more student code goes here
 								//
+								std::vector<ShapeInit>::iterator it;
+								for (it = vm.shapes.begin(); it != vm.shapes.end(); ++it) {
+									if (*it.type == UNKNOWN_SHAPE) {
+
+									}
+								}
 							}
 							break;
 						}
