@@ -66,11 +66,27 @@ void Cylinder::draw()
 
 	GLUquadric* cylinder = gluNewQuadric();
 	glColor3f(r, g, b);
-
+	glTranslatef(x, y, z);
 	glTranslatef(0, 0, -Length / 2);
 	gluCylinder(cylinder, Radius, Radius, Length, 32, 1);
+
+
 	gluDisk(cylinder, 0, Radius, 32, 32);
-	
+	glBegin(GL_LINES);
+
+	glColor3f(0, 1, 1);
+	glVertex3f(Radius, 0, Length/2);
+	glVertex3f(-Radius, 0, Length / 2);
+	glVertex3f(0, Radius, Length / 2);
+	glVertex3f(0, -Radius, Length / 2);
+
+	glVertex3f(Radius, 0, -Length / 2);
+	glVertex3f(-Radius, 0, -Length / 2);
+	glVertex3f(0, Radius, -Length / 2);
+	glVertex3f(0, -Radius, -Length / 2);
+	glEnd();
+
+	glColor3f(r, g, b);
 	glTranslatef(0, 0, Length / 2);
 	gluDisk(cylinder, 0, Radius, 32, 32);
 
