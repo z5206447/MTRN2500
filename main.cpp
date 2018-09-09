@@ -318,10 +318,10 @@ void idle() {
 					ShapeInit RectPrism;
 					RectPrism.type = RECTANGULAR_PRISM;
 					RectPrism.params.rect.xlen = 5;
-					RectPrism.params.rect.ylen = 3;
+					RectPrism.params.rect.ylen = 2;
 					RectPrism.params.rect.zlen = 6;
 					RectPrism.xyz[0] = 0.0;
-					RectPrism.xyz[1] = 0.0;
+					RectPrism.xyz[1] = 2.0;
 					RectPrism.xyz[2] = 0.0;
 					RectPrism.rotation = 0.0;
 					RectPrism.rgb[0] = 1.0;
@@ -330,13 +330,13 @@ void idle() {
 
 					ShapeInit TriPrism;
 					TriPrism.type = TRIANGULAR_PRISM;
-					TriPrism.params.tri.alen = 8;
-					TriPrism.params.tri.blen = 10;
-					TriPrism.params.tri.depth = 6;
+					TriPrism.params.tri.alen = 5;
+					TriPrism.params.tri.blen = 4;
+					TriPrism.params.tri.depth = 12;
 					TriPrism.params.tri.angle = 90;
 					TriPrism.xyz[0] = 5.0;
-					TriPrism.xyz[1] = -3.0;
-					TriPrism.xyz[2] = -3.0;
+					TriPrism.xyz[1] = -2.0;
+					TriPrism.xyz[2] = -6.0;
 					TriPrism.rotation = 0.0;
 					TriPrism.rgb[0] = 0.0;
 					TriPrism.rgb[1] = 1.0;
@@ -344,13 +344,13 @@ void idle() {
 
 					ShapeInit TrapPrism;
 					TrapPrism.type = TRAPEZOIDAL_PRISM;
-					TrapPrism.params.trap.alen = 12.0;
-					TrapPrism.params.trap.blen = 6.0;
-					TrapPrism.params.trap.height = 6.0;
-					TrapPrism.params.trap.aoff = 3.0;
+					TrapPrism.params.trap.alen = 10.0;
+					TrapPrism.params.trap.blen = 8.0;
+					TrapPrism.params.trap.height = 2.0;
+					TrapPrism.params.trap.aoff = 1.0;
 					TrapPrism.params.trap.depth = 12.0;
 					TrapPrism.xyz[0] = 0.0;
-					TrapPrism.xyz[1] = 6.0;
+					TrapPrism.xyz[1] = 3.0;
 					TrapPrism.xyz[2] = 0.0;
 					TrapPrism.rotation = 0.0;
 					TrapPrism.rgb[0] = 1.0;
@@ -358,8 +358,72 @@ void idle() {
 					TrapPrism.rgb[2] = 1.0;
 
 					//Add models for wheels
-					//Add all ShapeInit into vectors
+					ShapeInit FrontLeft;
+					FrontLeft.type = CYLINDER;
+					FrontLeft.params.cyl.radius = 2.0;
+					FrontLeft.params.cyl.depth = 1.0;
+					FrontLeft.params.cyl.isRolling = 1.0;
+					FrontLeft.params.cyl.isSteering = 1.0;
+					FrontLeft.xyz[0] = 10.0;
+					FrontLeft.xyz[1] = 0.0;
+					FrontLeft.xyz[2] = 0.0;
+					FrontLeft.rotation = 0.0;
+					FrontLeft.rgb[0] = 0.0;
+					FrontLeft.rgb[1] = 0.0;
+					FrontLeft.rgb[2] = 1.0;
 
+					ShapeInit FrontRight;
+					FrontLeft.type = CYLINDER;
+					FrontLeft.params.cyl.radius = 2.0;
+					FrontLeft.params.cyl.depth = 1.0;
+					FrontLeft.params.cyl.isRolling = 1.0;
+					FrontLeft.params.cyl.isSteering = 1.0;
+					FrontLeft.xyz[0] = 10.0;
+					FrontLeft.xyz[1] = 0.0;
+					FrontLeft.xyz[2] = -12.0;
+					FrontLeft.rotation = 0.0;
+					FrontLeft.rgb[0] = 0.0;
+					FrontLeft.rgb[1] = 0.0;
+					FrontLeft.rgb[2] = 1.0;
+
+					ShapeInit BackLeft;
+					FrontLeft.type = CYLINDER;
+					FrontLeft.params.cyl.radius = 2.0;
+					FrontLeft.params.cyl.depth = 1.0;
+					FrontLeft.params.cyl.isRolling = 1.0;
+					FrontLeft.params.cyl.isSteering = 0.0;
+					FrontLeft.xyz[0] = -5.0;
+					FrontLeft.xyz[1] = 0.0;
+					FrontLeft.xyz[2] = -6.0;
+					FrontLeft.rotation = 0.0;
+					FrontLeft.rgb[0] = 0.0;
+					FrontLeft.rgb[1] = 0.0;
+					FrontLeft.rgb[2] = 1.0;
+
+					ShapeInit BackRight;
+					FrontLeft.type = CYLINDER;
+					FrontLeft.params.cyl.radius = 2.0;
+					FrontLeft.params.cyl.depth = 1.0;
+					FrontLeft.params.cyl.isRolling = 1.0;
+					FrontLeft.params.cyl.isSteering = 0.0;
+					FrontLeft.xyz[0] = 0.0;
+					FrontLeft.xyz[1] = 0.0;
+					FrontLeft.xyz[2] = 12.0;
+					FrontLeft.rotation = 0.0;
+					FrontLeft.rgb[0] = 0.0;
+					FrontLeft.rgb[1] = 0.0;
+					FrontLeft.rgb[2] = 1.0;
+
+					//Add all ShapeInit into vector
+
+					vm.shapes.push_back(RectPrism);
+					vm.shapes.push_back(TriPrism);
+					vm.shapes.push_back(TrapPrism);
+					vm.shapes.push_back(FrontLeft);
+					vm.shapes.push_back(FrontRight);
+					vm.shapes.push_back(BackLeft);
+					vm.shapes.push_back(BackRight);
+					//Implement VehicleState Reporting
 					RemoteDataManager::Write(GetVehicleModelStr(vm));
 				}
 			}
@@ -400,8 +464,71 @@ void idle() {
 								// more student code goes here
 								//
 								std::vector<ShapeInit>::iterator it;
-								for (it = vm.shapes.begin(); it != vm.shapes.end(); ++it) {
-									if (*it.type == UNKNOWN_SHAPE) {
+								for (it = vm.shapes.begin(); it != vm.shapes.end(); it++) {
+									if ((*it).type == RECTANGULAR_PRISM) {
+										Shape *s = new RectangularPrism();
+										RectangularPrism *rect = dynamic_cast<RectangularPrism*>(s);
+										RectangularPrism Rectangular((*it).params.rect.xlen, (*it).params.rect.ylen, (*it).params.rect.zlen, (*it).rgb[0], (*it).rgb[1], (*it).rgb[2]);
+										glPushMatrix();
+										if (it == vm.shapes.begin()) {
+											Rectangular.positionInGL();
+										}
+										glTranslatef((*it).xyz[0], (*it).xyz[1], (*it).xyz[2]);
+										Rectangular.draw();
+										if (it != vm.shapes.begin()) {
+											glPopMatrix();
+										}
+										//delete s;
+									}
+									if ((*it).type == TRIANGULAR_PRISM) {
+										//Shape *s = new TriangularPrism();
+										//TriangularPrism *tri = dynamic_cast<TriangularPrism*>(s);
+										TriangularPrism Triangular((*it).params.tri.alen, (*it).params.tri.blen, (*it).params.tri.depth, (*it).params.tri.angle, (*it).rgb[0], (*it).rgb[1], (*it).rgb[2]);
+
+										glPushMatrix();
+										if (it == vm.shapes.begin()) {
+											Triangular.positionInGL();
+										}
+										glTranslatef((*it).xyz[0], (*it).xyz[1], (*it).xyz[2]);
+										Triangular.draw();
+										if (it != vm.shapes.begin()) {
+											glPopMatrix();
+										}
+										//delete s;
+										
+									}
+									if ((*it).type == TRAPEZOIDAL_PRISM) {
+										//Shape *s = new TrapezoidalPrism();
+										//TrapezoidalPrism *trap = dynamic_cast<TrapezoidalPrism*>(s);
+										TrapezoidalPrism Trapezoidal((*it).params.trap.alen, (*it).params.trap.height, (*it).params.trap.depth, (*it).params.trap.aoff, (*it).rgb[0], (*it).rgb[1], (*it).rgb[2]);
+
+										glPushMatrix();
+										if (it == vm.shapes.begin()) {
+											Trapezoidal.positionInGL();
+										}
+										glTranslatef((*it).xyz[0], (*it).xyz[1], (*it).xyz[2]);
+										Trapezoidal.draw();
+										if (it != vm.shapes.begin()) {
+											glPopMatrix();
+										}
+										//delete s;
+
+									}
+									if ((*it).type == CYLINDER) {
+										//Shape *s = new Cylinder();
+										//Cylinder *cyl = dynamic_cast<Cylinder*>(s);
+										Cylinder Cyl((*it).params.cyl.radius, (*it).params.cyl.depth, (*it).rgb[0], (*it).rgb[1], (*it).rgb[2]);
+
+										glPushMatrix();
+										if (it == vm.shapes.begin()) {
+											Cyl.positionInGL();
+										}
+										glTranslatef((*it).xyz[0], (*it).xyz[1], (*it).xyz[2]);
+										Cyl.draw();
+										if (it != vm.shapes.begin()) {
+											glPopMatrix();
+										}
+										//delete s;
 
 									}
 								}
