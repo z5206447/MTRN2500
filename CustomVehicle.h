@@ -9,6 +9,7 @@
 class CustomVehicle : public Vehicle {
 public:
 	CustomVehicle();
+	float distance;
 
 
 	void draw();
