@@ -38,9 +38,36 @@ CustomVehicle::CustomVehicle(VehicleModel vm)
 
 
 		// check the shape type
-		if (GetShapeTypeFrom(it->type) == "RectangularPrism") {
+		if (it->type == RECTANGULAR_PRISM) {
+			RectangularPrism *ret = new RectangularPrism();
+			ret->x = it->params.rect.xlen;
+
+
+			/*ShapeInit item;
+			item.type = it->type;
+			item.params.rect.xlen = it->params.rect.xlen;
+			item.params.rect.ylen = it->params.rect.ylen;
+			item.params.rect.zlen = it->params.rect.zlen;
+			item.xyz[0] = it->*/
+			addShape(ret);
+			
 
 		}
+		else if (it->type == TRIANGULAR_PRISM) {
+
+		}
+		else if (it->type == TRAPEZOIDAL_PRISM) {
+
+		}
+		else if (it->type == CYLINDER) {
+
+		}
+		else {
+
+		}
+
+		//addShape(item);
+		// Add shape
 	}
 }
 
