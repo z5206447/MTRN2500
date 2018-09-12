@@ -40,33 +40,57 @@ CustomVehicle::CustomVehicle(VehicleModel vm)
 		// check the shape type
 		if (it->type == RECTANGULAR_PRISM) {
 			RectangularPrism *ret = new RectangularPrism();
-			ret->x = it->params.rect.xlen;
+			ret->setXLength(it->params.rect.xlen);
+			ret->setYLength(it->params.rect.ylen);
+			ret->setZLength(it->params.rect.zlen);
 
+			ret->setX(it->xyz[0]);
+			ret->setY(it->xyz[1]);
+			ret->setZ(it->xyz[2]);
+			ret->setColor(it->rgb[0], it->rgb[1], it->rgb[2]);
+			ret->setRotation(it->rotation);
 
-			/*ShapeInit item;
-			item.type = it->type;
-			item.params.rect.xlen = it->params.rect.xlen;
-			item.params.rect.ylen = it->params.rect.ylen;
-			item.params.rect.zlen = it->params.rect.zlen;
-			item.xyz[0] = it->*/
 			addShape(ret);
 			
 
 		}
 		else if (it->type == TRIANGULAR_PRISM) {
+			TriangularPrism *tri = new TriangularPrism();
+			tri->setALength(it->params.tri.alen);
+			tri->setBLength(it->params.tri.blen);
+			tri->setAngle(it->params.tri.angle);
 
+
+			tri->setX(it->xyz[0]);
+			tri->setY(it->xyz[1]);
+			tri->setZ(it->xyz[2]);
+			tri->setColor(it->rgb[0], it->rgb[1], it->rgb[2]);
+			tri->setRotation(it->rotation);
+
+			addShape(tri);
 		}
 		else if (it->type == TRAPEZOIDAL_PRISM) {
 
 		}
 		else if (it->type == CYLINDER) {
+			Cylinder *cyl = new Cylinder();
+			cyl->setRadius(it->params.cyl.radius);
+			cyl->setLength(it->params.cyl.depth);
+
+
+
+			cyl->setX(it->xyz[0]);
+			cyl->setY(it->xyz[1]);
+			cyl->setZ(it->xyz[2]);
+			cyl->setColor(it->rgb[0], it->rgb[1], it->rgb[2]);
+			cyl->setRotation(it->rotation);
+
 
 		}
 		else {
 
 		}
 
-		//addShape(item);
 		// Add shape
 	}
 }
