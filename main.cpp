@@ -39,6 +39,13 @@
 #include "HUD.hpp"
 #include "ObstacleManager.hpp"
 
+#include "RectangularPrism.h"
+#include "TriangularPrism.h"
+#include "TrapezoidalPrism.h"
+#include "Cylinder.h"
+#include "CustomVehicle.h"
+
+
 void display();
 void reshape(int width, int height);
 void idle();
@@ -108,7 +115,7 @@ int main(int argc, char ** argv) {
 	// -------------------------------------------------------------------------
 
 	//vehicle = new MyVehicle();
-
+	vehicle = new CustomVehicle();
 
 	// add test obstacles
 	ObstacleManager::get()->addObstacle(Obstacle(10,10, 1));
@@ -153,6 +160,22 @@ void drawGoals()
 	}
 }
 
+
+void drawtest() {
+
+	//RectangularPrism Rectangle(2, 3, 4, 1, 0, 0);
+	//Rectangle.draw();
+
+	//TriangularPrism Triangle(2, 3, 5, 90, 1, 0, 0);
+	//Triangle.draw();
+
+	//TrapezoidalPrism Trapezoid(10, 3, 6, 3, 1, 0, 0);
+	//Trapezoid.draw();
+
+	//Cylinder Cylinder(10, 10, 1, 0, 0);
+	//Cylinder.draw();
+}
+
 void display() {
 	frameCounter++;
 	// -------------------------------------------------------------------------
@@ -195,6 +218,8 @@ void display() {
 	// draw HUD
 	HUD::Draw();
 
+	// Draw My Shapes
+	drawtest();
 	glutSwapBuffers();
 };
 
@@ -296,7 +321,7 @@ void idle() {
 				otherVehicles.clear();
 
 				// uncomment this line to connect to the robotics server.
-				//RemoteDataManager::Connect("www.robotics.unsw.edu.au","18081");
+				RemoteDataManager::Connect("www.robotics.unsw.edu.au","18081");
 
 				// on connect, let's tell the server what we look like
 				if (RemoteDataManager::IsConnected()) {
@@ -308,6 +333,7 @@ void idle() {
 					//
 					// student code goes here
 					//
+					//vm.
 
 					RemoteDataManager::Write(GetVehicleModelStr(vm));
 				}
@@ -332,7 +358,7 @@ void idle() {
 			for(unsigned int i = 0; i < msgs.size(); i++ ) {
 
 				RemoteMessage msg = msgs[i];
-				//cout << msg.payload << endl;
+				cout << msg.payload << endl;
 
 				switch(msg.type) {
 					// new models
@@ -344,6 +370,7 @@ void idle() {
 								
 								// uncomment the line below to create remote vehicles
 								//otherVehicles[vm.remoteID] = new MyVehicle();
+								otherVehicles[vm.remoteID] = new CustomVehicle();
 
 								//
 								// more student code goes here

@@ -28,10 +28,13 @@ Cylinder::Cylinder()
 	this->Length = 5;
 }
 
-Cylinder::Cylinder(double Radius, double Length)
+Cylinder::Cylinder(double Radius, double Length, double r, double g, double b)
 {
 	this->Radius = Radius;
 	this->Length = Length;
+	this->r = r;
+	this->g = g;
+	this->b = b;
 }
 
 double Cylinder::getRadius()
@@ -62,12 +65,30 @@ void Cylinder::draw()
 	//glRotatef(rotation, 1.0, 0.0, 0.0);
 
 	GLUquadric* cylinder = gluNewQuadric();
-	glColor3f(1.0, 1.0, 1.0);
+	glColor3f(red, green, blue);
+	glTranslatef(x, y, z);
+	glTranslatef(0, 0, -Length / 2);
 	gluCylinder(cylinder, Radius, Radius, Length, 32, 1);
-	gluDisk(cylinder, 0, Radius, 32, 32);
-	glTranslatef(0, 0, Length);
-	gluDisk(cylinder, 0, Radius, 32, 32);
 
+
+	gluDisk(cylinder, 0, Radius, 32, 32);
+	glBegin(GL_LINES);
+
+	glColor3f(0, 1, 1);
+	glVertex3f(Radius, 0, Length/2);
+	glVertex3f(-Radius, 0, Length / 2);
+	glVertex3f(0, Radius, Length / 2);
+	glVertex3f(0, -Radius, Length / 2);
+
+	glVertex3f(Radius, 0, -Length / 2);
+	glVertex3f(-Radius, 0, -Length / 2);
+	glVertex3f(0, Radius, -Length / 2);
+	glVertex3f(0, -Radius, -Length / 2);
+	glEnd();
+
+	glColor3f(r, g, b);
+	glTranslatef(0, 0, Length / 2);
+	gluDisk(cylinder, 0, Radius, 32, 32);
 
 	//glFlush();
 	glPopMatrix();

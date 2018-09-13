@@ -30,12 +30,15 @@ TrapezoidalPrism::TrapezoidalPrism()
 	Offset = 1;
 }
 
-TrapezoidalPrism::TrapezoidalPrism(double XLength, double YLength, double ZLength, double Offset)
+TrapezoidalPrism::TrapezoidalPrism(double XLength, double YLength, double ZLength, double Offset, double r, double g, double b)
 {
 	this->XLength = XLength;
 	this->YLength = YLength;
 	this->ZLength = ZLength;
 	this->Offset = Offset;
+	this->r = r;
+	this->g = g;
+	this->b = b;
 }
 
 double TrapezoidalPrism::getXLength()
@@ -85,7 +88,7 @@ void TrapezoidalPrism::draw()
 	//glTranslatef(1.5f, 0.0f, -6.0f);
 	//glRotatef(rotation, 1.0, 0.0, 0.0);
 
-	glColor3f(0.0, 1.0, 1.0);
+	glColor3f(red, green, blue);
 	glBegin(GL_QUADS);
 
 	// Front face of prism
