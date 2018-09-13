@@ -26,9 +26,12 @@
 #include "Cylinder.h"
 
 #include "Messages.hpp"
+#include <iostream>
 
 CustomVehicle::CustomVehicle()
 {
+	RectangularPrism *ret = new RectangularPrism();
+	addShape(ret);
 }
 
 CustomVehicle::CustomVehicle(VehicleModel vm)
@@ -72,12 +75,12 @@ CustomVehicle::CustomVehicle(VehicleModel vm)
 		}
 		if (it->type == TRAPEZOIDAL_PRISM) {
 			TrapezoidalPrism *trap = new TrapezoidalPrism();
-			trap->setXLength(it->params.trap.alen);
+			trap->setXLengthBottom(it->params.trap.alen);
+			trap->setXLengthTop(it->params.trap.blen);
 			trap->setYLength(it->params.trap.height);
 			trap->setZLength(it->params.trap.depth);
 			trap->setOffset(it->params.trap.aoff);
 
-			// need blen
 
 
 			trap->setX(it->xyz[0]);
@@ -120,7 +123,10 @@ void CustomVehicle::draw()
 	glPushMatrix();
 	positionInGL();
 	for (std::vector<Shape *>::iterator it = shapes.begin(); it != shapes.end(); ++it) {
+		//if (dynamic_cast<RectangularPrism*>(it*) != 0)
+		
 		(*it)->draw();
+		//std::cout << "Its working";
 	}
 	glPopMatrix();
 

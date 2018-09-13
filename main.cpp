@@ -34,17 +34,17 @@
 #include "Shape.hpp"
 #include "Vehicle.hpp"
 
-#include "Cylinder.h"
-#include "RectangularPrism.h"
-#include "TrapezoidalPrism.h"
-#include "TriangularPrism.h"
-
-#include "CustomVehicle.h"
-
 #include "RemoteDataManager.hpp"
 #include "Messages.hpp"
 #include "HUD.hpp"
 #include "ObstacleManager.hpp"
+
+#include "RectangularPrism.h"
+#include "TriangularPrism.h"
+#include "TrapezoidalPrism.h"
+#include "Cylinder.h"
+#include "CustomVehicle.h"
+
 
 void display();
 void reshape(int width, int height);
@@ -114,8 +114,8 @@ int main(int argc, char ** argv) {
 	//   custom vehicle.
 	// -------------------------------------------------------------------------
 
+	//vehicle = new MyVehicle();
 	vehicle = new CustomVehicle();
-
 
 	// add test obstacles
 	ObstacleManager::get()->addObstacle(Obstacle(10,10, 1));
@@ -160,6 +160,22 @@ void drawGoals()
 	}
 }
 
+
+void drawtest() {
+
+	//RectangularPrism Rectangle(2, 3, 4, 1, 0, 0);
+	//Rectangle.draw();
+
+	//TriangularPrism Triangle(2, 3, 5, 90, 1, 0, 0);
+	//Triangle.draw();
+
+	//TrapezoidalPrism Trapezoid(10, 3, 6, 3, 1, 0, 0);
+	//Trapezoid.draw();
+
+	//Cylinder Cylinder(10, 10, 1, 0, 0);
+	//Cylinder.draw();
+}
+
 void display() {
 	frameCounter++;
 	// -------------------------------------------------------------------------
@@ -201,7 +217,9 @@ void display() {
 
 	// draw HUD
 	HUD::Draw();
-	
+
+	// Draw My Shapes
+	drawtest();
 	glutSwapBuffers();
 };
 
@@ -311,11 +329,12 @@ void idle() {
 
 					VehicleModel vm;
 					vm.remoteID = 0;
+					
 
 					//
 					// student code goes here
 					//
-					ShapeInit RectPrism;
+					/*ShapeInit RectPrism;
 					RectPrism.type = RECTANGULAR_PRISM;
 					RectPrism.params.rect.xlen = 10;
 					RectPrism.params.rect.ylen = 4;
@@ -424,6 +443,9 @@ void idle() {
 					vm.shapes.push_back(BackLeft);
 					vm.shapes.push_back(BackRight);
 					//Implement VehicleState Reporting
+					//vm.
+					*/
+
 					RemoteDataManager::Write(GetVehicleModelStr(vm));
 				}
 			}
@@ -444,98 +466,30 @@ void idle() {
 		// if we're still connected, receive and handle response messages from the server
 		if (RemoteDataManager::IsConnected()) {
 			std::vector<RemoteMessage> msgs = RemoteDataManager::Read();
-			for (unsigned int i = 0; i < msgs.size(); i++) {
+			for(unsigned int i = 0; i < msgs.size(); i++ ) {
 
 				RemoteMessage msg = msgs[i];
-				//cout << msg.payload << endl;
+				cout << msg.payload << endl;
 
-				switch (msg.type) {
+				switch(msg.type) {
 					// new models
-				case 'M':
-				{
-					std::vector<VehicleModel> models = GetVehicleModels(msg.payload);
-					for (unsigned int i = 0; i < models.size(); i++) {
-						VehicleModel vm = models[i];
-						
-						// uncomment the line below to create remote vehicles
-						otherVehicles[vm.remoteID] = new CustomVehicle();
-
-						//
-						// more student code goes here
-						//
-						std::vector<ShapeInit>::iterator it;
-						for (it = vm.shapes.begin(); it != vm.shapes.end(); it++) {
-							if ((*it).type == RECTANGULAR_PRISM) {
-								RectangularPrism *rect = new RectangularPrism((*it).params.rect.xlen, (*it).params.rect.ylen, (*it).params.rect.zlen, (*it).rgb[0], (*it).rgb[1], (*it).rgb[2]);
-								//RectangularPrism Rectangular((*it).params.rect.xlen, (*it).params.rect.ylen, (*it).params.rect.zlen, (*it).rgb[0], (*it).rgb[1], (*it).rgb[2]);
-								glPushMatrix();
-								if (it == vm.shapes.begin()) {
-									rect->positionInGL();
-								}
-								glTranslatef((*it).xyz[0], (*it).xyz[1], (*it).xyz[2]);
-								rect->draw();
-								if (it != vm.shapes.begin()) {
-									glPopMatrix();
-								}
-								//delete s;
-							}
-							if ((*it).type == TRIANGULAR_PRISM) {
-								//Shape *s = new TriangularPrism();
-								//TriangularPrism *tri = dynamic_cast<TriangularPrism*>(s);
-								TriangularPrism *Tri = new TriangularPrism((*it).params.tri.alen, (*it).params.tri.blen, (*it).params.tri.depth, (*it).params.tri.angle, (*it).rgb[0], (*it).rgb[1], (*it).rgb[2]);
-
-								glPushMatrix();
-								if (it == vm.shapes.begin()) {
-									Tri->positionInGL();
-								}
-								glTranslatef((*it).xyz[0], (*it).xyz[1], (*it).xyz[2]);
-								Tri->draw();
-								if (it != vm.shapes.begin()) {
-									glPopMatrix();
-								}
-								//delete s;
+					case 'M':
+						{
+							std::vector<VehicleModel> models = GetVehicleModels(msg.payload);
+							for(unsigned int i = 0; i < models.size(); i++) {
+								VehicleModel vm = models[i];
+								
+								// uncomment the line below to create remote vehicles
+								//otherVehicles[vm.remoteID] = new MyVehicle();
+								otherVehicles[vm.remoteID] = new CustomVehicle(vm);
+								//otherVehicles[vm.remoteID] = new CustomVehicle(vm);
+								//
+								// more student code goes here
+								//
 
 							}
-							if ((*it).type == TRAPEZOIDAL_PRISM) {
-								//Shape *s = new TrapezoidalPrism();
-								//TrapezoidalPrism *trap = dynamic_cast<TrapezoidalPrism*>(s);
-								TrapezoidalPrism *trap = new TrapezoidalPrism((*it).params.trap.alen, (*it).params.trap.height, (*it).params.trap.depth, (*it).params.trap.aoff, (*it).rgb[0], (*it).rgb[1], (*it).rgb[2]);
-
-								glPushMatrix();
-								if (it == vm.shapes.begin()) {
-									trap->positionInGL();
-								}
-								glTranslatef((*it).xyz[0], (*it).xyz[1], (*it).xyz[2]);
-								trap->draw();
-								if (it != vm.shapes.begin()) {
-									glPopMatrix();
-								}
-								//delete s;
-
-							}
-							if ((*it).type == CYLINDER) {
-								//Shape *s = new Cylinder();
-								//Cylinder *cyl = dynamic_cast<Cylinder*>(s);
-								Cylinder *cyl = new Cylinder((*it).params.cyl.radius, (*it).params.cyl.depth, (*it).rgb[0], (*it).rgb[1], (*it).rgb[2]);
-
-								glPushMatrix();
-								if (it == vm.shapes.begin()) {
-									cyl ->positionInGL();
-								}
-								glTranslatef((*it).xyz[0], (*it).xyz[1], (*it).xyz[2]);
-								cyl ->draw();
-								if (it != vm.shapes.begin()) {
-									glPopMatrix();
-								}
-
-								//delete s;
-
-					}
-				}
-				}
-				break;
-			}
-		
+							break;
+						}
 
 					// vehicle states
 					case 'S': 
