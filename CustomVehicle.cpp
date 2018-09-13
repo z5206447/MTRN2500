@@ -75,12 +75,12 @@ CustomVehicle::CustomVehicle(VehicleModel vm)
 		}
 		if (it->type == TRAPEZOIDAL_PRISM) {
 			TrapezoidalPrism *trap = new TrapezoidalPrism();
-			trap->setXLength(it->params.trap.alen);
+			trap->setXLengthBottom(it->params.trap.alen);
+			trap->setXLengthTop(it->params.trap.blen);
 			trap->setYLength(it->params.trap.height);
 			trap->setZLength(it->params.trap.depth);
 			trap->setOffset(it->params.trap.aoff);
 
-			// need blen
 
 
 			trap->setX(it->xyz[0]);

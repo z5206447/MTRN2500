@@ -329,11 +329,122 @@ void idle() {
 
 					VehicleModel vm;
 					vm.remoteID = 0;
+					
 
 					//
 					// student code goes here
 					//
+					/*ShapeInit RectPrism;
+					RectPrism.type = RECTANGULAR_PRISM;
+					RectPrism.params.rect.xlen = 10;
+					RectPrism.params.rect.ylen = 4;
+					RectPrism.params.rect.zlen = 12;
+					RectPrism.xyz[0] = 0.0;
+					RectPrism.xyz[1] = 2.0;
+					RectPrism.xyz[2] = 0.0;
+					RectPrism.rotation = 0.0;
+					RectPrism.rgb[0] = 1.0;
+					RectPrism.rgb[1] = 0.0;
+					RectPrism.rgb[2] = 0.0;
+
+					ShapeInit TriPrism;
+					TriPrism.type = TRIANGULAR_PRISM;
+					TriPrism.params.tri.alen = 5;
+					TriPrism.params.tri.blen = 4;
+					TriPrism.params.tri.depth = 12;
+					TriPrism.params.tri.angle = 90;
+					TriPrism.xyz[0] = 5.0;
+					TriPrism.xyz[1] = 2.0;
+					TriPrism.xyz[2] = 0.0;
+					TriPrism.rotation = 0.0;
+					TriPrism.rgb[0] = 0.0;
+					TriPrism.rgb[1] = 1.0;
+					TriPrism.rgb[2] = 0.0;
+
+					ShapeInit TrapPrism;
+					TrapPrism.type = TRAPEZOIDAL_PRISM;
+					TrapPrism.params.trap.alen = 10.0;
+					TrapPrism.params.trap.blen = 8.0;
+					TrapPrism.params.trap.height = 2.0;
+					TrapPrism.params.trap.aoff = 1.0;
+					TrapPrism.params.trap.depth = 12.0;
+					TrapPrism.xyz[0] = -5.0;
+					TrapPrism.xyz[1] = 4.0;
+					TrapPrism.xyz[2] = 0.0;
+					TrapPrism.rotation = 0.0;
+					TrapPrism.rgb[0] = 1.0;
+					TrapPrism.rgb[1] = 1.0;
+					TrapPrism.rgb[2] = 1.0;
+
+					//Add models for wheels
+					ShapeInit FrontLeft;
+					FrontLeft.type = CYLINDER;
+					FrontLeft.params.cyl.radius = 2.0;
+					FrontLeft.params.cyl.depth = 1.0;
+					FrontLeft.params.cyl.isRolling = 1.0;
+					FrontLeft.params.cyl.isSteering = 1.0;
+					FrontLeft.xyz[0] = 5.0;
+					FrontLeft.xyz[1] = 0.0;
+					FrontLeft.xyz[2] = -6.0;
+					FrontLeft.rotation = 0.0;
+					FrontLeft.rgb[0] = 0.0;
+					FrontLeft.rgb[1] = 0.0;
+					FrontLeft.rgb[2] = 1.0;
+
+					ShapeInit FrontRight;
+					FrontRight.type = CYLINDER;
+					FrontRight.params.cyl.radius = 2.0;
+					FrontRight.params.cyl.depth = 1.0;
+					FrontRight.params.cyl.isRolling = 1.0;
+					FrontRight.params.cyl.isSteering = 0.0;
+					FrontRight.xyz[0] = -5.0;
+					FrontRight.xyz[1] = 0.0;
+					FrontRight.xyz[2] = -6.0;
+					FrontRight.rotation = 0.0;
+					FrontRight.rgb[0] = 0.0;
+					FrontRight.rgb[1] = 0.0;
+					FrontRight.rgb[2] = 1.0;
+
+					ShapeInit BackLeft;
+					BackLeft.type = CYLINDER;
+					BackLeft.params.cyl.radius = 2.0;
+					BackLeft.params.cyl.depth = 1.0;
+					BackLeft.params.cyl.isRolling = 1.0;
+					BackLeft.params.cyl.isSteering = 0.0;
+					BackLeft.xyz[0] = -5.0;
+					BackLeft.xyz[1] = 0.0;
+					BackLeft.xyz[2] = 6.0;
+					BackLeft.rotation = 0.0;
+					BackLeft.rgb[0] = 0.0;
+					BackLeft.rgb[1] = 0.0;
+					BackLeft.rgb[2] = 1.0;
+
+					ShapeInit BackRight;
+					BackRight.type = CYLINDER;
+					BackRight.params.cyl.radius = 2.0;
+					BackRight.params.cyl.depth = 1.0;
+					BackRight.params.cyl.isRolling = 1.0;
+					BackRight.params.cyl.isSteering = 1.0;
+					BackRight.xyz[0] = 5.0;
+					BackRight.xyz[1] = 0.0;
+					BackRight.xyz[2] = 6.0;
+					BackRight.rotation = 0.0;
+					BackRight.rgb[0] = 0.0;
+					BackRight.rgb[1] = 0.0;
+					BackRight.rgb[2] = 1.0;
+
+					//Add all ShapeInit into vector
+
+					vm.shapes.push_back(RectPrism);
+					vm.shapes.push_back(TriPrism);
+					vm.shapes.push_back(TrapPrism);
+					vm.shapes.push_back(FrontLeft);
+					vm.shapes.push_back(FrontRight);
+					vm.shapes.push_back(BackLeft);
+					vm.shapes.push_back(BackRight);
+					//Implement VehicleState Reporting
 					//vm.
+					*/
 
 					RemoteDataManager::Write(GetVehicleModelStr(vm));
 				}
@@ -370,11 +481,12 @@ void idle() {
 								
 								// uncomment the line below to create remote vehicles
 								//otherVehicles[vm.remoteID] = new MyVehicle();
-								otherVehicles[vm.remoteID] = new CustomVehicle();
-
+								otherVehicles[vm.remoteID] = new CustomVehicle(vm);
+								//otherVehicles[vm.remoteID] = new CustomVehicle(vm);
 								//
 								// more student code goes here
 								//
+
 							}
 							break;
 						}

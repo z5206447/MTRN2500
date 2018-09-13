@@ -21,7 +21,6 @@
 
 
 #include "RectangularPrism.h"
-#include <iostream>
 
 RectangularPrism::RectangularPrism()
 {
@@ -75,14 +74,14 @@ void RectangularPrism::setZLength(double ZLength)
 
 void RectangularPrism::draw()
 {
-	std::cout << "Its drawing";
 	glPushMatrix();
 	//glLoadIdentity();
 	//glTranslatef(1.5f, 0.0f, -6.0f);
 	//glRotatef(rotation, 1.0, 0.0, 0.0);
 	glColor3f(red, green, blue);
 
-	glTranslatef(x, y, z);
+	glTranslatef(x, y + YLength / 2, z);
+	glRotatef(180, 0, 1, 0);
 	glRotatef(rotation, 1.0, 0.0, 0.0);
 	glBegin(GL_QUADS);
 

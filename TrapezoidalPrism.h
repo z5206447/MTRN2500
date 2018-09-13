@@ -8,21 +8,27 @@
 
 class TrapezoidalPrism : public Shape {
 private:
-	double XLength;
+	double XLengthBottom;
+	double XLengthTop;
 	double YLength;
 	double ZLength;
 	double Offset;
+	double r;
+	double g;
+	double b;
 
 public:
 	TrapezoidalPrism();
-	TrapezoidalPrism(double XLength, double YLength, double ZLength, double Offset);
+	TrapezoidalPrism(double XLengthBottom, double XLengthTop, double YLength, double ZLength, double Offset, double r, double g, double b);
 
-	double getXLength();
+	double getXLengthBottom();
+	double getXLengthTop();
 	double getYLength();
 	double getZLength();
 	double getOffset();
 
-	void setXLength(double XLength);
+	void setXLengthBottom(double XLength);
+	void setXLengthTop(double XLengthTop);
 	void setYLength(double YLength);
 	void setZLength(double ZLength);
 	void setOffset(double Offset);

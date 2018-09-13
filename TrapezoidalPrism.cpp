@@ -24,15 +24,17 @@
 
 TrapezoidalPrism::TrapezoidalPrism()
 {
-	XLength = 2;
+	XLengthBottom = 2;
+	XLengthTop = 1;
 	YLength = 1;
 	ZLength = 1;
 	Offset = 1;
 }
 
-TrapezoidalPrism::TrapezoidalPrism(double XLength, double YLength, double ZLength, double Offset, double r, double g, double b)
+TrapezoidalPrism::TrapezoidalPrism(double XLengthBottom, double XLengthTop, double YLength, double ZLength, double Offset, double r, double g, double b)
 {
-	this->XLength = XLength;
+	this->XLengthBottom = XLengthBottom;
+	this->XLengthTop = XLengthTop;
 	this->YLength = YLength;
 	this->ZLength = ZLength;
 	this->Offset = Offset;
@@ -41,9 +43,14 @@ TrapezoidalPrism::TrapezoidalPrism(double XLength, double YLength, double ZLengt
 	this->b = b;
 }
 
-double TrapezoidalPrism::getXLength()
+double TrapezoidalPrism::getXLengthBottom()
 {
-	return XLength;
+	return XLengthBottom;
+}
+
+double TrapezoidalPrism::getXLengthTop()
+{
+	return XLengthTop;
 }
 
 double TrapezoidalPrism::getYLength()
@@ -61,9 +68,16 @@ double TrapezoidalPrism::getOffset()
 	return Offset;
 }
 
-void TrapezoidalPrism::setXLength(double XLength)
+
+
+void TrapezoidalPrism::setXLengthBottom(double XLength)
 {
-	this->XLength = XLength;
+	this->XLengthBottom = XLength;
+}
+
+void TrapezoidalPrism::setXLengthTop(double XLengthTop)
+{
+	this->XLengthTop = XLengthTop;
 }
 
 void TrapezoidalPrism::setYLength(double YLength)
@@ -81,6 +95,8 @@ void TrapezoidalPrism::setOffset(double Offset)
 	this->Offset = Offset;
 }
 
+
+
 void TrapezoidalPrism::draw()
 {
 	glPushMatrix();
@@ -89,44 +105,48 @@ void TrapezoidalPrism::draw()
 	//glRotatef(rotation, 1.0, 0.0, 0.0);
 
 	glColor3f(red, green, blue);
+	glTranslatef(x, y + YLength / 2, z);
+	glRotatef(180, 0, 1, 0);
+	glRotatef(rotation, 1.0, 0.0, 0.0);
+
 	glBegin(GL_QUADS);
 
 	// Front face of prism
-	glVertex3f(x - XLength, y - YLength, z - ZLength);
-	glVertex3f(x + XLength, y - YLength, z - ZLength);
-	glVertex3f(x + XLength - Offset, y + YLength, z - ZLength);
-	glVertex3f(x - XLength + Offset, y + YLength, z - ZLength);
+	glVertex3f(-XLengthBottom /2, -YLength / 2, -ZLength / 2);
+	glVertex3f(+XLengthBottom / 2, -YLength / 2, -ZLength / 2);
+	glVertex3f(+XLengthBottom / 2 - Offset, +YLength / 2, -ZLength / 2);
+	glVertex3f(+XLengthBottom / 2 - Offset - XLengthTop, +YLength / 2, z - ZLength / 2);
 
 	// Back face of prism
-	glVertex3f(x - XLength, y - YLength, z + ZLength);
-	glVertex3f(x + XLength, y - YLength, z + ZLength);
-	glVertex3f(x + XLength - Offset, y + YLength, z + ZLength);
-	glVertex3f(x - XLength + Offset, y + YLength, z + ZLength);
-
-	// Right face of prism
-	glVertex3f(x + XLength, y - YLength, z - ZLength);
-	glVertex3f(x + XLength, y - YLength, z + ZLength);
-	glVertex3f(x + XLength - Offset, y + YLength, z + ZLength);
-	glVertex3f(x + XLength - Offset, y + YLength, z - ZLength);
+	glVertex3f(-XLengthBottom / 2, -YLength / 2, +ZLength / 2);
+	glVertex3f(+XLengthBottom / 2, -YLength / 2, +ZLength / 2);
+	glVertex3f(+XLengthBottom / 2 - Offset, +YLength / 2, +ZLength / 2);
+	glVertex3f(+XLengthBottom / 2 - Offset - XLengthTop, +YLength / 2, +ZLength / 2);
 
 	// Left face of prism
-	glVertex3f(x - XLength, y - YLength, z - ZLength);
-	glVertex3f(x - XLength, y - YLength, z + ZLength);
-	glVertex3f(x - XLength + Offset, y + YLength, z + ZLength);
-	glVertex3f(x - XLength + Offset, y + YLength, z - ZLength);
+	glVertex3f(+XLengthBottom / 2, -YLength / 2, -ZLength / 2);
+	glVertex3f(+XLengthBottom / 2, -YLength / 2, +ZLength / 2);
+	glVertex3f(+XLengthBottom / 2 - Offset, +YLength / 2, +ZLength / 2);
+	glVertex3f(+XLengthBottom / 2 - Offset, +YLength / 2, -ZLength / 2);
+
+	// Right face of prism
+	glVertex3f(-XLengthBottom / 2, -YLength / 2, -ZLength / 2);
+	glVertex3f(-XLengthBottom / 2, -YLength / 2, +ZLength / 2);
+	glVertex3f(+XLengthBottom / 2 - Offset - XLengthTop, +YLength / 2, +ZLength / 2);
+	glVertex3f(+XLengthBottom / 2 - Offset - XLengthTop, +YLength / 2, -ZLength / 2);
 
 
 	// Bottom face of prism
-	glVertex3f(x - XLength, y - YLength, z - ZLength);
-	glVertex3f(x + XLength, y - YLength, z - ZLength);
-	glVertex3f(x + XLength, y - YLength, z + ZLength);
-	glVertex3f(x - XLength, y - YLength, z + ZLength);
+	glVertex3f(-XLengthBottom / 2, -YLength / 2, -ZLength / 2);
+	glVertex3f(+XLengthBottom / 2, -YLength / 2, -ZLength / 2);
+	glVertex3f(+XLengthBottom / 2, -YLength / 2, +ZLength / 2);
+	glVertex3f(-XLengthBottom / 2, -YLength / 2, +ZLength / 2);
 
 	// Top face of prism
-	glVertex3f(x - XLength + Offset, y + YLength, z - ZLength);
-	glVertex3f(x + XLength - Offset, y + YLength, z - ZLength);
-	glVertex3f(x + XLength - Offset, y + YLength, z + ZLength);
-	glVertex3f(x - XLength + Offset, y + YLength, z + ZLength);
+	glVertex3f(+XLengthBottom / 2 - Offset - XLengthTop, +YLength / 2, -ZLength / 2);
+	glVertex3f(+XLengthBottom / 2 - Offset, +YLength / 2, -ZLength / 2);
+	glVertex3f(+XLengthBottom / 2 - Offset, +YLength / 2, +ZLength / 2);
+	glVertex3f(+XLengthBottom / 2 - Offset - XLengthTop, +YLength / 2, +ZLength / 2);
 
 	glEnd();
 	//glFlush();

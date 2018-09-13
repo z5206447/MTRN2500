@@ -67,11 +67,14 @@ void Cylinder::draw()
 	GLUquadric* cylinder = gluNewQuadric();
 	glColor3f(red, green, blue);
 	glTranslatef(x, y, z);
-	glTranslatef(0, 0, -Length / 2);
+	glTranslatef(0, Radius, -Length / 2);
+	//glRotatef(180, 0, 1, 0);
+	glRotatef(-rotation, 0, 0, 1);
+
 	gluCylinder(cylinder, Radius, Radius, Length, 32, 1);
 
 
-	gluDisk(cylinder, 0, Radius, 32, 32);
+	gluDisk(cylinder, 0, Radius, 4, 32);
 	glBegin(GL_LINES);
 
 	glColor3f(0, 1, 1);
@@ -86,9 +89,9 @@ void Cylinder::draw()
 	glVertex3f(0, -Radius, -Length / 2);
 	glEnd();
 
-	glColor3f(r, g, b);
-	glTranslatef(0, 0, Length / 2);
-	gluDisk(cylinder, 0, Radius, 32, 32);
+	glColor3f(red, green, blue);
+	glTranslatef(0, 0, Length);
+	gluDisk(cylinder, 0, Radius, 4, 32);
 
 	//glFlush();
 	glPopMatrix();

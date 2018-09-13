@@ -91,17 +91,21 @@ void TriangularPrism::draw()
 	//glRotatef(rotation, 1.0, 0.0, 0.0);
 	glColor3f(red, green, blue);
 
+	glTranslatef(x, y, z);
+	glTranslatef(ALength/2, 0, Depth/2);
+	glRotatef(180, 0, 1, 0);
+
 	glBegin(GL_TRIANGLES);
 
 	// Front face of prism
-	glVertex3f(x, y, z);
-	glVertex3f(x + ALength, y, z);
-	glVertex3f(x + BLength * cos(Angle * PI/180.0), y + BLength * sin(Angle * PI / 180.0), z);
+	glVertex3f(0, 0, 0);
+	glVertex3f(+ALength, 0, 0);
+	glVertex3f(+BLength * cos(Angle * PI / 180.0), +BLength * sin(Angle * PI / 180.0), 0);
 
 	// Back face of prism
-	glVertex3f(x, y, z + Depth);
-	glVertex3f(x + ALength, y, z + Depth);
-	glVertex3f(x + BLength * cos(Angle * PI / 180.0), y + BLength * sin(Angle * PI / 180.0), z + Depth);
+	glVertex3f(0, 0, 0 + Depth);
+	glVertex3f(+ALength, 0, +Depth);
+	glVertex3f(+BLength * cos(Angle * PI / 180.0), +BLength * sin(Angle * PI / 180.0), +Depth);
 
 	glEnd();
 
@@ -110,25 +114,25 @@ void TriangularPrism::draw()
 	//glColor3f(1.0, 0.0, 0.0);
 
 	// Bottom face of prism
-	glVertex3f(x, y, z);
-	glVertex3f(x + ALength, y, z);
-	glVertex3f(x + ALength, y, z + Depth);
-	glVertex3f(x, y, z + Depth);
+	glVertex3f(0, 0, 0);
+	glVertex3f(+ALength, 0, 0);
+	glVertex3f(+ALength, 0, +Depth);
+	glVertex3f(0, 0, +Depth);
 
 	//glColor3f(0.0, 1.0, 0.0);
 	// Left face of Vertex
-	glVertex3f(x, y, z);
-	glVertex3f(x, y, z + Depth);
-	glVertex3f(x + BLength * cos(Angle * PI / 180.0), y + BLength * sin(Angle * PI / 180.0), z + Depth);
-	glVertex3f(x + BLength * cos(Angle * PI / 180.0), y + BLength * sin(Angle * PI / 180.0), z);
+	glVertex3f(0, 0, 0);
+	glVertex3f(0, 0, +Depth / 2);
+	glVertex3f(+BLength * cos(Angle * PI / 180.0), +BLength * sin(Angle * PI / 180.0), +Depth);
+	glVertex3f(+BLength * cos(Angle * PI / 180.0), +BLength * sin(Angle * PI / 180.0), 0);
 
 
 	//glColor3f(1.0, 1.0, 1.0);
 	// Right face of Vertex
-	glVertex3f(x + ALength, y, z);
-	glVertex3f(x + ALength, y, z + Depth);
-	glVertex3f(x + BLength * cos(Angle * PI / 180.0), y + BLength * sin(Angle * PI / 180.0), z + Depth);
-	glVertex3f(x + BLength * cos(Angle * PI / 180.0), y + BLength * sin(Angle * PI / 180.0), z);
+	glVertex3f(+ALength, 0, 0);
+	glVertex3f(+ALength, 0, +Depth);
+	glVertex3f(+BLength * cos(Angle * PI / 180.0), +BLength * sin(Angle * PI / 180.0), +Depth);
+	glVertex3f(+BLength * cos(Angle * PI / 180.0), +BLength * sin(Angle * PI / 180.0), 0);
 
 
 	glEnd();
