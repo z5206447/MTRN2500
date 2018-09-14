@@ -334,6 +334,8 @@ void idle() {
 					//
 					// student code goes here
 					//
+					CustomVehicle *Car = new CustomVehicle();
+					for (std::vector<Shape *>::iterator it = Car->shapes.begin(); it != vm.shapes.end(); ++it) {
 					/*ShapeInit RectPrism;
 					RectPrism.type = RECTANGULAR_PRISM;
 					RectPrism.params.rect.xlen = 10;
@@ -442,7 +444,6 @@ void idle() {
 					vm.shapes.push_back(FrontRight);
 					vm.shapes.push_back(BackLeft);
 					vm.shapes.push_back(BackRight);
-					//Implement VehicleState Reporting
 					//vm.
 					*/
 

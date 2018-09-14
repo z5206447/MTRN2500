@@ -27,12 +27,13 @@ RectangularPrism::RectangularPrism()
 	XLength = 1.0;
 	YLength = 1.0;
 	ZLength = 1.0;
-	this->r = 1.0;
+	this->setColor(1.0, 1.0, 1.0);
+	/*this->r = 1.0;
 	this->g = 1.0;
-	this->b = 1.0;
+	this->b = 1.0;*/
 }
 
-RectangularPrism::RectangularPrism(double XLength, double YLength, double ZLength, double r, double g, double b)
+/*RectangularPrism::RectangularPrism(double XLength, double YLength, double ZLength, double r, double g, double b)
 {
 	this->XLength = XLength;
 	this->YLength = YLength;
@@ -40,7 +41,7 @@ RectangularPrism::RectangularPrism(double XLength, double YLength, double ZLengt
 	this->r = r;
 	this->g = g;
 	this->b = b;
-}
+}*/
 
 double RectangularPrism::getXLength()
 {

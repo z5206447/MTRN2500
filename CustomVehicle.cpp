@@ -31,7 +31,94 @@
 CustomVehicle::CustomVehicle()
 {
 	RectangularPrism *ret = new RectangularPrism();
+	ret->setXLength(3.0);
+	ret->setYLength(1.0);
+	ret->setZLength(2.0);
+
+	ret->setX(0.0);
+	ret->setY(0.4);
+	ret->setZ(0.0);
+	ret->setColor(0.0, 0.6, 0.0);
+	ret->setRotation(0.0);
+
 	addShape(ret);
+
+	TriangularPrism *Tri = new TriangularPrism();
+	Tri->setALength(1.5);
+	Tri->setAngle(30);
+	Tri->setBLength(1.0);
+	Tri->setDepth(2.0);
+
+	Tri->setX(0.75);
+	Tri->setY(1.4);
+	Tri->setZ(0.0);
+	Tri->setColor(1.0, 0.0, 1.0);
+	Tri->setRotation(0.0);
+
+	addShape(Tri);
+
+	TrapezoidalPrism *Trap = new TrapezoidalPrism();
+	Trap->setXLengthBottom(1.5);
+	Trap->setXLengthTop(1.0);
+	Trap->setOffset(0.2);
+	Trap->setYLength(0.5);
+	Trap->setZLength(2.0);
+	
+	Trap->setX(-0.75);
+	Trap->setY(1.4);
+	Trap->setZ(0.0);
+	Trap->setColor(1.0, 1.0, 1.0);
+	Trap->setRotation(0.0);
+
+	addShape(Trap);
+
+	Cylinder *FrontRight = new Cylinder();
+	FrontRight->setRadius(0.8);
+	FrontRight->setLength(0.1);
+
+	FrontRight->setX(1.1);
+	FrontRight->setY(0.0);
+	FrontRight->setZ(1.1);
+	FrontRight->setColor(1.0, 0.0, 0.0);
+	FrontRight->setRotation(0.0);
+
+	addShape(FrontRight);
+
+	Cylinder *FrontLeft = new Cylinder();
+	FrontLeft->setRadius(0.8);
+	FrontLeft->setLength(0.1);
+
+	FrontLeft->setX(1.1);
+	FrontLeft->setY(0.0);
+	FrontLeft->setZ(-1.1);
+	FrontLeft->setColor(1.0, 0.0, 0.0);
+	FrontLeft->setRotation(0.0);
+
+	addShape(FrontLeft);
+
+	Cylinder *BackRight = new Cylinder();
+	BackRight->setRadius(0.4);
+	BackRight->setLength(0.1);
+
+	BackRight->setX(-1.1);
+	BackRight->setY(0.0);
+	BackRight->setZ(1.1);
+	BackRight->setColor(0.0, 0.0, 1.0);
+	BackRight->setRotation(0.0);
+
+	addShape(BackRight);
+
+	Cylinder *BackLeft = new Cylinder();
+	BackLeft->setRadius(0.4);
+	BackLeft->setLength(0.1);
+
+	BackLeft->setX(-1.1);
+	BackLeft->setY(0.0);
+	BackLeft->setZ(-1.1);
+	BackLeft->setColor(0.0, 0.0, 1.0);
+	BackLeft->setRotation(0.0);
+
+	addShape(BackLeft);
 }
 
 CustomVehicle::CustomVehicle(VehicleModel vm)
@@ -99,7 +186,8 @@ CustomVehicle::CustomVehicle(VehicleModel vm)
 			cyl->setLength(it->params.cyl.depth);
 
 			//need is rolling/ steering
-
+			cyl->setRolling(it->params.cyl.isRolling);
+			cyl->setSteering(it->params.cyl.isSteering);
 
 			cyl->setX(it->xyz[0]);
 			cyl->setY(it->xyz[1]);
@@ -112,8 +200,6 @@ CustomVehicle::CustomVehicle(VehicleModel vm)
 
 		}
 
-
-		// Add shape
 	}
 }
 

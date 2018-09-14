@@ -5,11 +5,12 @@
 #include <GL/glut.h>
 
 #include "Vehicle.hpp"
+#include "Messages.hpp"
 
 class CustomVehicle : public Vehicle {
 public:
 	CustomVehicle();
-	//CustomVehicle(VehicleModel model);
+	CustomVehicle(VehicleModel vm);
 	float distance;
 
 

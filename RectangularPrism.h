@@ -11,13 +11,10 @@ private:
 	double XLength;
 	double YLength;
 	double ZLength;
-	double r;
-	double g;
-	double b;
 
 public:
 	RectangularPrism();
-	RectangularPrism(double XLength, double YLength, double ZLength, double r, double g, double b);
+	//RectangularPrism(double XLength, double YLength, double ZLength);
 
 	double getXLength();
 	double getYLength();

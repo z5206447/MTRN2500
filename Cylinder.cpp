@@ -28,14 +28,14 @@ Cylinder::Cylinder()
 	this->Length = 5;
 }
 
-Cylinder::Cylinder(double Radius, double Length, double r, double g, double b)
+/*Cylinder::Cylinder(double Radius, double Length, double r, double g, double b)
 {
 	this->Radius = Radius;
 	this->Length = Length;
 	this->r = r;
 	this->g = g;
 	this->b = b;
-}
+}*/
 
 double Cylinder::getRadius()
 {
@@ -47,6 +47,18 @@ double Cylinder::getLength()
 	return Length;
 }
 
+bool Cylinder::getRolling() 
+{
+
+	return isRolling;
+}
+
+bool Cylinder::getSteering()
+{
+
+	return isSteering;
+}
+
 void Cylinder::setRadius(double Radius)
 {
 	this->Radius = Radius;
@@ -55,6 +67,18 @@ void Cylinder::setRadius(double Radius)
 void Cylinder::setLength(double Length)
 {
 	this->Length = Length;
+}
+
+void Cylinder::setRolling(bool isRolling)
+{
+
+	this->isRolling = isRolling;
+}
+
+void Cylinder::setSteering(bool Steering)
+{
+
+	this->isSteering = isSteering;
 }
 
 void Cylinder::draw()
