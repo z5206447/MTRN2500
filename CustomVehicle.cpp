@@ -30,8 +30,13 @@
 
 CustomVehicle::CustomVehicle()
 {
-	RectangularPrism *ret = new RectangularPrism();
-	addShape(ret);
+	//RectangularPrism *ret = new RectangularPrism();
+	//addShape(ret);
+
+	Cylinder * Cyl = new Cylinder();
+	Cyl->SetRolling(true);
+	Cyl->setSteering(true);
+	addShape(Cyl);
 }
 
 CustomVehicle::CustomVehicle(VehicleModel vm)
@@ -99,7 +104,8 @@ CustomVehicle::CustomVehicle(VehicleModel vm)
 			cyl->setLength(it->params.cyl.depth);
 
 			//need is rolling/ steering
-
+			cyl->setSteering(it->params.cyl.isSteering);
+			cyl->SetRolling(it->params.cyl.isRolling);
 
 			cyl->setX(it->xyz[0]);
 			cyl->setY(it->xyz[1]);
@@ -123,10 +129,40 @@ void CustomVehicle::draw()
 	glPushMatrix();
 	positionInGL();
 	for (std::vector<Shape *>::iterator it = shapes.begin(); it != shapes.end(); ++it) {
-		//if (dynamic_cast<RectangularPrism*>(it*) != 0)
-		
-		(*it)->draw();
-		//std::cout << "Its working";
+		Cylinder *Cyl = dynamic_cast<Cylinder*>(*it);
+		if (Cyl) {
+			glPushMatrix();
+			glTranslatef(Cyl->getX(), Cyl->getY(), Cyl->getZ());
+			
+
+			// Adjustments
+			glTranslatef(0, Cyl->getRadius(), 0);
+
+			distance += speed;
+			if (Cyl->getSteering()) {
+				glRotatef(-steering, 0, 1, 0);
+			}
+			if (Cyl->getRolling()) {
+				glRotatef(-distance, 0, 0, 1);
+			}
+			
+			//Addjustments
+			glTranslatef(0, 0, -Cyl->getLength() / 2);
+
+
+			std::cout << "Its steering with " << steering << std::endl;
+			
+			
+			Cyl->draw();
+			
+			//(*it)->draw();
+			// Testing to see if it is able to dynamically cast on cylinder
+			//std::cout << "Its working";
+			glPopMatrix();
+		}
+		else {
+			(*it)->draw();
+		}
 	}
 	glPopMatrix();
 
