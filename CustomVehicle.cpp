@@ -76,6 +76,9 @@ CustomVehicle::CustomVehicle()
 	FrontRight->setRadius(0.8);
 	FrontRight->setLength(0.1);
 
+	FrontRight->setRolling(true);
+	FrontRight->setSteering(true);
+
 	FrontRight->setX(1.1);
 	FrontRight->setY(0.0);
 	FrontRight->setZ(1.1);
@@ -87,6 +90,9 @@ CustomVehicle::CustomVehicle()
 	Cylinder *FrontLeft = new Cylinder();
 	FrontLeft->setRadius(0.8);
 	FrontLeft->setLength(0.1);
+
+	FrontLeft->setRolling(true);
+	FrontLeft->setSteering(true);
 
 	FrontLeft->setX(1.1);
 	FrontLeft->setY(0.0);
@@ -100,6 +106,9 @@ CustomVehicle::CustomVehicle()
 	BackRight->setRadius(0.4);
 	BackRight->setLength(0.1);
 
+	BackRight->setRolling(true);
+	BackRight->setSteering(false);
+
 	BackRight->setX(-1.1);
 	BackRight->setY(0.0);
 	BackRight->setZ(1.1);
@@ -111,6 +120,9 @@ CustomVehicle::CustomVehicle()
 	Cylinder *BackLeft = new Cylinder();
 	BackLeft->setRadius(0.4);
 	BackLeft->setLength(0.1);
+
+	BackLeft->setRolling(true);
+	BackLeft->setSteering(false);
 
 	BackLeft->setX(-1.1);
 	BackLeft->setY(0.0);
@@ -203,16 +215,49 @@ CustomVehicle::CustomVehicle(VehicleModel vm)
 	}
 }
 
+std::vector<Shape *>::iterator CustomVehicle::getBegin() {
+	return shapes.begin();
+}
+
+std::vector<Shape *>::iterator CustomVehicle::getEnd() {
+	return shapes.end();
+}
 
 void CustomVehicle::draw()
 {	
 	glPushMatrix();
 	positionInGL();
 	for (std::vector<Shape *>::iterator it = shapes.begin(); it != shapes.end(); ++it) {
-		//if (dynamic_cast<RectangularPrism*>(it*) != 0)
-		
-		(*it)->draw();
-		//std::cout << "Its working";
+		Cylinder *Cyl = dynamic_cast<Cylinder*>(*it);
+		if (Cyl) {
+			glPushMatrix();
+			glTranslatef(Cyl->getX(), Cyl->getY(), Cyl->getZ());
+
+			// Adjustments
+			glTranslatef(0, Cyl->getRadius(), 0);
+			distance += speed;
+			if (Cyl->getSteering()) {
+				glRotatef(-steering, 0, 1, 0);
+			}
+			if (Cyl->getRolling()) {
+				glRotatef(-distance, 0, 0, 1);
+			}
+
+			//Addjustments
+			glTranslatef(0, 0, -Cyl->getLength() / 2);
+			std::cout << "Its steering with " << steering << std::endl;
+
+
+			Cyl->draw();
+
+			//(*it)->draw();
+			// Testing to see if it is able to dynamically cast on cylinder
+			//std::cout << "Its working";
+			glPopMatrix();
+		}
+		else {
+			(*it)->draw();
+		}
 	}
 	glPopMatrix();
 

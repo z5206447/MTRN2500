@@ -335,7 +335,84 @@ void idle() {
 					// student code goes here
 					//
 					CustomVehicle *Car = new CustomVehicle();
-					for (std::vector<Shape *>::iterator it = Car->shapes.begin(); it != vm.shapes.end(); ++it) {
+					for (std::vector<Shape *>::iterator it = Car->getBegin(); it != Car->getEnd(); ++it) {
+						RectangularPrism *RectPrism = dynamic_cast<RectangularPrism*>(*it);
+						if (RectPrism) {
+							ShapeInit RectInit;
+							RectInit.type = RECTANGULAR_PRISM;
+							RectInit.params.rect.xlen = RectPrism->getXLength();
+							RectInit.params.rect.ylen = RectPrism->getYLength();
+							RectInit.params.rect.zlen = RectPrism->getZLength();
+							RectInit.xyz[0] = static_cast<float> (RectPrism->getX());
+							RectInit.xyz[1] = static_cast<float> (RectPrism->getY());
+							RectInit.xyz[2] = static_cast<float> (RectPrism->getZ());
+							RectInit.rotation = static_cast<float> (RectPrism->getRotation());
+							RectInit.rgb[0] = static_cast<float> (RectPrism->getRed());
+							RectInit.rgb[1] = static_cast<float> (RectPrism->getGreen());
+							RectInit.rgb[2] = static_cast<float> (RectPrism->getBlue());
+
+							vm.shapes.push_back(RectInit);
+							continue;
+						}
+						TriangularPrism *TriPrism = dynamic_cast<TriangularPrism*>(*it);
+						if (TriPrism) {
+							ShapeInit TriInit;
+							TriInit.type = TRIANGULAR_PRISM;
+							TriInit.params.tri.alen = TriPrism->getALength();
+							TriInit.params.tri.angle = TriPrism->getAngle();
+							TriInit.params.tri.blen = TriPrism->getBLength();
+							TriInit.params.tri.depth = TriPrism->getDepth();
+							TriInit.xyz[0] = static_cast<float> (TriPrism->getX());
+							TriInit.xyz[1] = static_cast<float> (TriPrism->getY());
+							TriInit.xyz[2] = static_cast<float> (TriPrism->getZ());
+							TriInit.rotation = static_cast<float> (TriPrism->getRotation());
+							TriInit.rgb[0] = static_cast<float> (TriPrism->getRed());
+							TriInit.rgb[1] = static_cast<float> (TriPrism->getGreen());
+							TriInit.rgb[2] = static_cast<float> (TriPrism->getBlue());
+
+							vm.shapes.push_back(TriInit);
+							continue;
+						}
+						TrapezoidalPrism *TrapPrism = dynamic_cast<TrapezoidalPrism*>(*it);
+						if (TrapPrism) {
+							ShapeInit TrapInit;
+							TrapInit.type = TRAPEZOIDAL_PRISM;
+							TrapInit.params.trap.alen = TrapPrism->getXLengthBottom();
+							TrapInit.params.trap.blen = TrapPrism->getXLengthTop();
+							TrapInit.params.trap.aoff = TrapPrism->getOffset();
+							TrapInit.params.trap.height = TrapPrism->getYLength();
+							TrapInit.params.trap.depth = TrapPrism->getZLength();
+							TrapInit.xyz[0] = static_cast<float> (TrapPrism->getX());
+							TrapInit.xyz[1] = static_cast<float> (TrapPrism->getY());
+							TrapInit.xyz[2] = static_cast<float> (TrapPrism->getZ());
+							TrapInit.rotation = static_cast<float> (TrapPrism->getRotation());
+							TrapInit.rgb[0] = static_cast<float> (TrapPrism->getRed());
+							TrapInit.rgb[1] = static_cast<float> (TrapPrism->getGreen());
+							TrapInit.rgb[2] = static_cast<float> (TrapPrism->getBlue());
+
+							vm.shapes.push_back(TrapInit);
+							continue;
+						}
+						Cylinder *Cyl = dynamic_cast<Cylinder*>(*it);
+						if (Cyl) {
+							ShapeInit CylInit;
+							CylInit.type = CYLINDER;
+							CylInit.params.cyl.radius = Cyl->getRadius();
+							CylInit.params.cyl.depth = Cyl->getLength();
+							CylInit.params.cyl.isRolling = Cyl->getRolling();
+							CylInit.params.cyl.isSteering = Cyl->getSteering();
+							CylInit.xyz[0] = static_cast<float> (Cyl->getX());
+							CylInit.xyz[1] = static_cast<float> (Cyl->getY());
+							CylInit.xyz[2] = static_cast<float> (Cyl->getZ());
+							CylInit.rotation = static_cast<float> (Cyl->getRotation());
+							CylInit.rgb[0] = static_cast<float> (Cyl->getRed());
+							CylInit.rgb[1] = static_cast<float> (Cyl->getGreen());
+							CylInit.rgb[2] = static_cast<float> (Cyl->getBlue());
+
+							vm.shapes.push_back(CylInit);
+							continue;
+						}
+					}
 					/*ShapeInit RectPrism;
 					RectPrism.type = RECTANGULAR_PRISM;
 					RectPrism.params.rect.xlen = 10;

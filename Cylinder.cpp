@@ -25,7 +25,7 @@
 Cylinder::Cylinder()
 {
 	this->Radius = 1;
-	this->Length = 5;
+	this->Length = 1;
 }
 
 /*Cylinder::Cylinder(double Radius, double Length, double r, double g, double b)
@@ -75,7 +75,7 @@ void Cylinder::setRolling(bool isRolling)
 	this->isRolling = isRolling;
 }
 
-void Cylinder::setSteering(bool Steering)
+void Cylinder::setSteering(bool isSteering)
 {
 
 	this->isSteering = isSteering;
@@ -90,10 +90,10 @@ void Cylinder::draw()
 
 	GLUquadric* cylinder = gluNewQuadric();
 	glColor3f(red, green, blue);
-	glTranslatef(x, y, z);
-	glTranslatef(0, Radius, -Length / 2);
+	//glTranslatef(x, y, z);
+	//glTranslatef(0, Radius, -Length / 2);
 	//glRotatef(180, 0, 1, 0);
-	glRotatef(-rotation, 0, 0, 1);
+	//glRotatef(-rotation, 0, 0, 1);
 
 	gluCylinder(cylinder, Radius, Radius, Length, 32, 1);
 
