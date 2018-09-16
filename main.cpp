@@ -45,6 +45,8 @@
 #include "Cylinder.h"
 #include "CustomVehicle.h"
 
+#include <Windows.h>
+#include <Xinput.h>
 
 void display();
 void reshape(int width, int height);
@@ -263,7 +265,7 @@ double getTime()
 }
 
 void idle() {
-
+	XINPUT_STATE state;
 	if (KeyManager::get()->isAsciiKeyPressed('a')) {
 		Camera::get()->strafeLeft();
 	}
@@ -291,19 +293,19 @@ void idle() {
 	speed = 0;
 	steering = 0;
 
-	if (KeyManager::get()->isSpecialKeyPressed(GLUT_KEY_LEFT)) {
+	if (KeyManager::get()->isSpecialKeyPressed(GLUT_KEY_LEFT) || ((state.Gamepad.wButtons) && (XINPUT_GAMEPAD_DPAD_LEFT) == 1)) {
 		steering = Vehicle::MAX_LEFT_STEERING_DEGS * -1;   
 	}
 
-	if (KeyManager::get()->isSpecialKeyPressed(GLUT_KEY_RIGHT)) {
+	if (KeyManager::get()->isSpecialKeyPressed(GLUT_KEY_RIGHT) || ((state.Gamepad.wButtons) && (XINPUT_GAMEPAD_DPAD_RIGHT) == 1)) {
 		steering = Vehicle::MAX_RIGHT_STEERING_DEGS * -1;
 	}
 
-	if (KeyManager::get()->isSpecialKeyPressed(GLUT_KEY_UP)) {
+	if (KeyManager::get()->isSpecialKeyPressed(GLUT_KEY_UP) || ((state.Gamepad.wButtons) && (XINPUT_GAMEPAD_DPAD_UP) == 1)) {
 		speed = Vehicle::MAX_FORWARD_SPEED_MPS;
 	}
 
-	if (KeyManager::get()->isSpecialKeyPressed(GLUT_KEY_DOWN)) {
+	if (KeyManager::get()->isSpecialKeyPressed(GLUT_KEY_DOWN) || ((state.Gamepad.wButtons) && (XINPUT_GAMEPAD_DPAD_DOWN) == 1)) {
 		speed = Vehicle::MAX_BACKWARD_SPEED_MPS;
 	}
 
